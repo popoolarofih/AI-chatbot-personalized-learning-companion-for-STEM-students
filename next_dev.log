@@ -1,0 +1,22 @@
+
+> test@0.1.0 dev
+> next dev -p 3006
+
+ ⚠ Mismatching @next/swc version, detected: 15.5.7 while Next.js is on 15.5.11. Please ensure these match
+ ⚠ Mismatching @next/swc version, detected: 15.5.7 while Next.js is on 15.5.11. Please ensure these match
+   ▲ Next.js 15.5.11
+   - Local:        http://localhost:3006
+   - Network:      http://192.168.0.2:3006
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 1267ms (165 modules)
+ ○ Compiling /login ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (133kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled /login in 6.4s (696 modules)
+ GET /login 200 in 8008ms
+ ✓ Compiled in 285ms (289 modules)
+ ✓ Compiled in 135ms (289 modules)
+[?25h

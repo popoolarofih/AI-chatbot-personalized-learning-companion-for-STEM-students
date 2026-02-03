@@ -22,18 +22,14 @@ export async function POST(req: NextRequest) {
     if (!body) {
       return NextResponse.json({ error: 'Empty body' }, { status: 400 });
     }
-    const { messages, context, subject } = JSON.parse(body);
+    const { messages, context } = JSON.parse(body);
 
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: 'Invalid messages' }, { status: 400 });
     }
 
-    const subjectContext = subject && subject !== 'All'
-      ? `\n\nThe student is currently focusing on the subject: ${subject}.`
-      : '';
-
     const fullMessages = [
-      { role: 'system', content: SYSTEM_PROMPT + subjectContext },
+      { role: 'system', content: SYSTEM_PROMPT },
       ...messages,
     ];
 

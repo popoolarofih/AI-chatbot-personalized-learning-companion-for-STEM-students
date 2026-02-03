@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Paperclip, Sparkles, User, Bot, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useFilter } from '@/context/FilterContext';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -11,7 +10,6 @@ interface Message {
 }
 
 export const ChatInterface = () => {
-  const { selectedSubject } = useFilter();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -42,18 +40,6 @@ export const ChatInterface = () => {
         method: 'POST',
         body: formData,
       });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        let errorMessage = 'Upload failed';
-        try {
-          const errorData = JSON.parse(errorText);
-          errorMessage = errorData.error || errorMessage;
-        } catch {
-          errorMessage = `Server error: ${response.status} ${response.statusText}`;
-        }
-        throw new Error(errorMessage);
-      }
 
       const data = await response.json();
       if (data.text) {
@@ -97,10 +83,7 @@ export const ChatInterface = () => {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [...messages, userMessage],
-          subject: selectedSubject
-        }),
+        body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
       const data = await response.json();
@@ -121,9 +104,7 @@ export const ChatInterface = () => {
         <div className="flex items-center gap-2 text-sm">
           <span className="text-gray-500 dark:text-[#95a0c6]">Chat</span>
           <span className="text-gray-400">/</span>
-          <span className="text-gray-900 dark:text-white font-medium">
-            {selectedSubject === 'All' ? 'STEM Learning Session' : `${selectedSubject} Session`}
-          </span>
+          <span className="text-gray-900 dark:text-white font-medium">STEM Learning Session</span>
         </div>
       </header>
 

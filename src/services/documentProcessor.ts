@@ -1,5 +1,4 @@
 import { PDFParse } from 'pdf-parse';
-import mammoth from 'mammoth';
 
 export const extractTextFromPdf = async (buffer: Buffer): Promise<string> => {
   try {
@@ -15,16 +14,6 @@ export const extractTextFromPdf = async (buffer: Buffer): Promise<string> => {
   } catch (error) {
     console.error('Error parsing PDF:', error);
     throw new Error('Failed to parse PDF document');
-  }
-};
-
-export const extractTextFromDocx = async (buffer: Buffer): Promise<string> => {
-  try {
-    const result = await mammoth.extractRawText({ buffer });
-    return result.value;
-  } catch (error) {
-    console.error('Error parsing DOCX:', error);
-    throw new Error('Failed to parse DOCX document');
   }
 };
 

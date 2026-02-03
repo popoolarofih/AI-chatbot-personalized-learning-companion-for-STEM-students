@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { extractTextFromPdf, extractTextFromDocx } from '@/services/documentProcessor';
+import { extractTextFromPdf } from '@/services/documentProcessor';
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,11 +15,6 @@ export async function POST(req: NextRequest) {
 
     if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
       text = await extractTextFromPdf(buffer);
-    } else if (
-      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-      file.name.endsWith('.docx')
-    ) {
-      text = await extractTextFromDocx(buffer);
     } else {
       text = buffer.toString('utf-8');
     }
